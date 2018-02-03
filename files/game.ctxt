@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.target=game
+comment0.target=Game
 comment1.params=
-comment1.target=game()
+comment1.target=Game()
 comment2.params=
 comment2.target=void\ start()
 comment3.params=

@@ -1,20 +1,23 @@
 import java.util.*;
 
-public class main
+public class Main
 {
-    public static int round = -1;
-    public static int score = 0;
-    public static float percent;
-    public static int quiz;
-    public static String name;
-    public static ArrayList<String> questionList = new ArrayList<String>();
-    public static ArrayList<String> questionAnswers = new ArrayList<String>();
-    public static ArrayList<Integer> questionShown = new ArrayList<Integer>();
+    public static Main main;
+    public static Menu menu;
+    public static Game game;
+    public static Quizes quizes;
     
-    public main() {}
+    public Main()
+    {
+
+    }
     
     public static void main(String[] args)
     {   
+        Main main = new Main();
+        Menu menu = new Menu();
+        Game game = new Game();
+        Quizes quizes = new Quizes();
         menu.start();
     }
     

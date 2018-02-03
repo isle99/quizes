@@ -1,11 +1,9 @@
 #BlueJ class context
-comment0.target=menu
+comment0.target=Menu
 comment1.params=
-comment1.target=menu()
-comment2.params=args
-comment2.target=void\ main(java.lang.String[])
+comment1.target=Menu()
+comment2.params=
+comment2.target=void\ start()
 comment3.params=
-comment3.target=void\ start()
-comment4.params=
-comment4.target=void\ quizes()
-numComments=5
+comment3.target=void\ quizes()
+numComments=4

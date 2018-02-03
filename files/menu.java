@@ -1,30 +1,28 @@
 import java.util.*;
 
-public class menu
+public class Menu
 {
     private static Scanner input = new Scanner(System.in);
     private static String selection;
     
-    public menu() {}
-    
-    public static void main(String[] args)
-    {   
-        start();
+    public Menu()
+    {
+        
     }
     
     public static void start()
     {
-        if (main.round == -1)
+        if (Game.round == -1)
         {
-            main.round = main.round + 1;
+            Game.round = Game.round + 1;
         }
         else
         {
-            main.questionList.clear();
-            main.questionAnswers.clear();
-            main.questionShown.clear();
-            main.round = 0;
-            main.score = 0;
+            Quizes.questionList.clear();
+            Quizes.questionAnswers.clear();
+            Quizes.questionShown.clear();
+            Game.round = 0;
+            Game.score = 0;
         }
         
         System.out.println("--------------------------------------------------------------");
@@ -42,12 +40,12 @@ public class menu
             }
             else if(selection.equals("s"))
             {
-                main.quit();
+                Main.quit();
                 break;
             }
             else if(selection.equals("d"))
             {
-                main.quit();
+                Main.quit();
                 break;
             }
             else
@@ -69,17 +67,17 @@ public class menu
             
             if(selection.equals("a"))
             {
-                quizes.a();
+                Quizes.a();
                 break;
             }
             else if(selection.equals("s"))
             {
-                quizes.b();
+                Quizes.b();
                 break;
             }
             else if(selection.equals("d"))
             {
-                quizes.c();
+                Quizes.c();
                 break;
             }
             else if(selection.equals("f"))

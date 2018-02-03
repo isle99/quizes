@@ -1,50 +1,58 @@
 import java.util.*;
 import java.io.*;
 
-public class game
-{   
+public class Game
+{       
+    public static int round = -1;
+    public static int score = 0;
+    public static float percent;
+    public static String name;
+    
     private static Scanner input = new Scanner(System.in);
     private static String selection;
     private static Random randomizer = new Random();
     
-    public game () {}
+    public Game ()
+    {
+        
+    }
     
     public static void start()
     {
-        int choice = randomizer.nextInt(main.questionAnswers.size());
+        int choice = randomizer.nextInt(Quizes.questionAnswers.size());
         
-        if (main.round == 0)
+        if (round == 0)
         {
             System.out.println("--------------------------------------------------------------");
             System.out.println("Enter your name:\n");
-            main.name = input.nextLine();
+            name = input.nextLine();
         }
         
-        while (main.round < 5)
+        while (round < 5)
         {
-            boolean i = main.questionShown.contains(choice);
+            boolean i = Quizes.questionShown.contains(choice);
             
             while(i == true)
             {
-                choice = randomizer.nextInt(main.questionAnswers.size());
-                i = main.questionShown.contains(choice);
+                choice = randomizer.nextInt(Quizes.questionAnswers.size());
+                i = Quizes.questionShown.contains(choice);
             }
             
-            main.questionShown.add(choice);
-            main.percent = (float) main.score / main.round * 100;
+            Quizes.questionShown.add(choice);
+            percent = (float) score / round * 100;
             
             System.out.println("--------------------------------------------------------------");
             System.out.println("F. Menu\n");
-            if (main.round == 0)
+            if (round == 0)
             {
-                System.out.println("Correct answers: " + main.score + " / " + main.round + "\nPercent: 0.0%\n");
+                System.out.println("Correct answers: " + score + " / " + round + "\nPercent: 0.0%\n");
             }
             else
             {
-                System.out.println("Correct answers: " + main.score + " / " + main.round + "\nPercent: " + main.percent + "%\n");
+                System.out.println("Correct answers: " + score + " / " + round + "\nPercent: " + percent + "%\n");
             }
             
-            System.out.println(main.questionList.get(choice));
+            System.out.println(Quizes.questionList.get(choice));
             
             while (true) 
             {
@@ -53,40 +61,40 @@ public class game
                 
                 if(selection.equals("a"))
                 {
-                    if (selection.equals(main.questionAnswers.get(choice)))
+                    if (selection.equals(Quizes.questionAnswers.get(choice)))
                     {
                         System.out.println("Correct!");
-                        main.score = main.score + 1;
+                        score = score + 1;
                     }
                     else
                     {
-                        System.out.println("Incorrect, the correct answer was " + main.questionAnswers.get(choice).toUpperCase() + ".");
+                        System.out.println("Incorrect, the correct answer was " + Quizes.questionAnswers.get(choice).toUpperCase() + ".");
                     }
                     break;
                 }
                 else if(selection.equals("s"))
                 {
-                    if (selection.equals(main.questionAnswers.get(choice)))
+                    if (selection.equals(Quizes.questionAnswers.get(choice)))
                     {
                         System.out.println("Correct!");
-                        main.score = main.score + 1;
+                        score = score + 1;
                     }
                     else
                     {
-                        System.out.println("Incorrect, the correct answer was " + main.questionAnswers.get(choice).toUpperCase() + ".");
+                        System.out.println("Incorrect, the correct answer was " + Quizes.questionAnswers.get(choice).toUpperCase() + ".");
                     }
                     break;
                 }
                 else if(selection.equals("d"))
                 {
-                    if (selection.equals(main.questionAnswers.get(choice)))
+                    if (selection.equals(Quizes.questionAnswers.get(choice)))
                     {
                         System.out.println("Correct!");
-                        main.score = main.score + 1;
+                        score = score + 1;
                     }
                     else
                     {
-                        System.out.println("Incorrect, the correct answer was " + main.questionAnswers.get(choice).toUpperCase() + ".");
+                        System.out.println("Incorrect, the correct answer was " + Quizes.questionAnswers.get(choice).toUpperCase() + ".");
                     }
                     break;
                 }
@@ -101,14 +109,14 @@ public class game
                 }
             }
               
-            main.round++;
+            round++;
         }
 
-        main.percent = (float) main.score / main.round * 100;
+        percent = (float) score / round * 100;
         System.out.println("--------------------------------------------------------------");
-        System.out.println("Name: \n" + main.name + "\n");
-        System.out.println("Final score: \n" + main.score + " out of " + main.round + ".\n");
-        System.out.println("Final percentage: \n" + main.percent + "%\n");
+        System.out.println("Name: \n" + name + "\n");
+        System.out.println("Final score: \n" + score + " out of " + round + ".\n");
+        System.out.println("Final percentage: \n" + percent + "%\n");
         System.out.println("A. Main Menu\nS. Quit\n");
         
         
@@ -119,12 +127,12 @@ public class game
             
             if(selection.equals("a"))
             {
-                menu.start();
+                Menu.start();
                 break;
             }
             else if(selection.equals("s"))
             {
-                main.quit();
+                Main.quit();
                 break;
             }
             else
@@ -151,12 +159,12 @@ public class game
             }
             else if(selection.equals("s"))
             {
-                menu.start();
+                Menu.start();
                 break;
             }
             else if(selection.equals("d"))
             {
-                main.quit();
+                Main.quit();
                 break;
             }
             else
