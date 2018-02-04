@@ -5,13 +5,16 @@ public class Game
 {       
     public static int round = -2;
     public static int score = 0;
-    public static float percent;
     public static String name;
+    public static int numberOfAnswers;
     
     private static Scanner input = new Scanner(System.in);
     private static String selection;
     private static Random randomizer = new Random();
-    private static int numberOfinputs;
+    private static boolean same;
+    private static int choice;
+    private static float percent;
+    private static boolean found;
     
     public Game ()
     {
@@ -31,13 +34,13 @@ public class Game
     
     public static void start()
     {
-        int choice = randomizer.nextInt(Quizes.questionList.size());
-        
         name();
         
-        while (round < 5)
+        int choice = randomizer.nextInt(Quizes.questionList.size());
+        while (round < Quizes.numberOfQuestions)
         {
-            boolean same = Quizes.questionShown.contains(choice);
+            found = false;
+            same = Quizes.questionShown.contains(choice);
             
             while(same == true)
             {
@@ -46,10 +49,11 @@ public class Game
             }
             
             Quizes.questionShown.add(choice);
-            percent = (float) score / round * 100;
             
+            //INTERFACE
             System.out.println("--------------------------------------------------------------");
             System.out.println("Q. Menu\n");
+            percent = (float) score / round * 100;
             if (round == 0)
             {
                 System.out.println("Correct answers: " + score + " / " + round + "\nPercent: 0.0%\n");
@@ -58,14 +62,16 @@ public class Game
             {
                 System.out.println("Correct answers: " + score + " / " + round + "\nPercent: " + percent + "%\n");
             }
+            System.out.print((round + 1) + ". ");
             
+            //QUESTION
             System.out.println(Quizes.questionList.get(choice));
             if(choice == 0)
             {
                 for(int i = 0; i < Quizes.questionAnswer0.size(); i++)
                 {
                     System.out.println(Main.inputs.get(i).toUpperCase() + ". " + Quizes.questionAnswer0.get(i));
-                    numberOfinputs = Quizes.questionAnswer0.size();
+                    numberOfAnswers = Quizes.questionAnswer0.size();
                 }
                 System.out.println();
             }
@@ -74,7 +80,7 @@ public class Game
                 for(int i = 0; i < Quizes.questionAnswer1.size(); i++)
                 {
                     System.out.println(Main.inputs.get(i).toUpperCase() + ". " + Quizes.questionAnswer1.get(i));
-                    numberOfinputs = Quizes.questionAnswer1.size();
+                    numberOfAnswers = Quizes.questionAnswer1.size();
                 }
                 System.out.println();
             }
@@ -83,7 +89,7 @@ public class Game
                 for(int i = 0; i < Quizes.questionAnswer2.size(); i++)
                 {
                     System.out.println(Main.inputs.get(i).toUpperCase() + ". " + Quizes.questionAnswer2.get(i));
-                    numberOfinputs = Quizes.questionAnswer2.size();
+                    numberOfAnswers = Quizes.questionAnswer2.size();
                 }
                 System.out.println();
             }
@@ -92,7 +98,7 @@ public class Game
                 for(int i = 0; i < Quizes.questionAnswer3.size(); i++)
                 {
                     System.out.println(Main.inputs.get(i).toUpperCase() + ". " + Quizes.questionAnswer3.get(i));
-                    numberOfinputs = Quizes.questionAnswer3.size();
+                    numberOfAnswers = Quizes.questionAnswer3.size();
                 }
                 System.out.println();
             }
@@ -101,140 +107,64 @@ public class Game
                 for(int i = 0; i < Quizes.questionAnswer4.size(); i++)
                 {
                     System.out.println(Main.inputs.get(i).toUpperCase() + ". " + Quizes.questionAnswer4.get(i));
-                    numberOfinputs = Quizes.questionAnswer4.size();
+                    numberOfAnswers = Quizes.questionAnswer4.size();
                 }
                 System.out.println();
             }
             
-            while (true) 
+            //ANSWER
+            while (true)
             {
                 String selection = input.nextLine();
                 selection = selection.toLowerCase();
                 
-                if(selection.equals("a"))
+                for(int i = 0; i < numberOfAnswers; i++)
                 {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
+                    if(selection.equals(Main.inputs.get(i)))
                     {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
+                        if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
+                        {
+                            System.out.println("\nCorrect!");
+                            score = score + 1;
+                        }
+                        else
+                        {
+                            System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
+                        }
+                        found = true;
+                        break;
                     }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
                 }
-                else if(selection.equals("s"))
+                
+                if (found == true)
                 {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
+                    break;  
                 }
-                else if(selection.equals("d"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("f"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("g"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("h"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("j"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("k"))
-                {
-                    if (selection.equals(Quizes.questionCorrectAnswers.get(choice)))
-                    {
-                        System.out.println("\nCorrect!");
-                        score = score + 1;
-                    }
-                    else
-                    {
-                        System.out.println("\nIncorrect, the correct answer was " + Quizes.questionCorrectAnswers.get(choice).toUpperCase() + ".");
-                    }
-                    break;
-                }
-                else if(selection.equals("q"))
+                if(selection.equals("q"))
                 {
                     pause();
-                    return;
+                    break;
                 }
-                else
+                else 
                 {
                     System.out.print("Valid inputs: ");
-                    for(int i = 0; i < numberOfinputs - 1; i++)
+                    for(int i = 0; i < numberOfAnswers - 1; i++)
                     {
                         System.out.print(Main.inputs.get(i).toUpperCase() + ", ");
                     }
-                    System.out.print(Main.inputs.get(numberOfinputs - 1).toUpperCase());
+                    System.out.print(Main.inputs.get(numberOfAnswers - 1).toUpperCase());
                     System.out.println(" and Q.\n");
                 }
             }
-              
+            
             round++;
         }
-
+        
+        end();
+    } 
+    
+    public static void end()
+    {
         percent = (float) score / round * 100;
         System.out.println("--------------------------------------------------------------");
         System.out.println("Name: \n" + name + "\n");

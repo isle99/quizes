@@ -3,6 +3,7 @@ import java.util.*;
 public class Quizes
 {      
     public static int quiz;
+    public static int numberOfQuestions;
     public static ArrayList<String> questionList = new ArrayList<String>();
     public static ArrayList<String> questionAnswer0 = new ArrayList<String>();
     public static ArrayList<String> questionAnswer1 = new ArrayList<String>();
@@ -49,6 +50,8 @@ public class Quizes
         questionAnswer4.add("Rijeka");
         questionAnswer4.add("Dubrovnik");
         questionCorrectAnswers.add("d");
+        
+        numberOfQuestions = questionList.size();
     }
     
     public static void quiz1()
@@ -82,6 +85,8 @@ public class Quizes
         questionAnswer4.add("Staples Center");
         questionAnswer4.add("Madison Square Garden");
         questionCorrectAnswers.add("a");
+        
+        numberOfQuestions = questionList.size();
     }
     
     public static void quiz2()
@@ -120,5 +125,7 @@ public class Quizes
         
         questionList.add("What's the only Portugese speaking country in South America?");
         questionCorrectAnswers.add("s");
+        
+        numberOfQuestions = questionList.size();
     }
 }
