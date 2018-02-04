@@ -2,10 +2,7 @@ import java.util.*;
 
 public class Main
 {
-    public static Main main;
-    public static Menu menu;
-    public static Game game;
-    public static Quizes quizes;
+    public static ArrayList<String> inputs = new ArrayList<String>();
     
     public Main()
     {

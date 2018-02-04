@@ -12,45 +12,53 @@ public class Menu
     
     public static void start()
     {
-        if (Game.round == -1)
+        String[] inputsArray = new String[] {"a","s","d","f","g","h","j","k"};
+        Main.inputs.addAll(Arrays.asList(inputsArray));
+        
+        if (Game.round == -2)
         {
             Game.round = Game.round + 1;
         }
         else
         {
+            Quizes.questionAnswer0.clear();
+            Quizes.questionAnswer1.clear();
+            Quizes.questionAnswer2.clear();
+            Quizes.questionAnswer3.clear();
+            Quizes.questionAnswer4.clear();
             Quizes.questionList.clear();
-            Quizes.questionAnswers.clear();
+            Quizes.questionCorrectAnswers.clear();
             Quizes.questionShown.clear();
-            Game.round = 0;
+            Game.round = -1;
             Game.score = 0;
         }
         
         System.out.println("--------------------------------------------------------------");
-        System.out.println("MENU\nA. Quizes\nS. Highscores \nD. Quit\n");
+        System.out.println("MENU\nQ. Quizes\nW. Highscores \nE. Quit\n");
      
         while (true) 
         {
             String selection = input.nextLine();
             selection = selection.toLowerCase();
             
-            if(selection.equals("a"))
+            if(selection.equals("q"))
             {
                 quizes();
                 break;
             }
-            else if(selection.equals("s"))
+            else if(selection.equals("w"))
             {
                 Main.quit();
                 break;
             }
-            else if(selection.equals("d"))
+            else if(selection.equals("e"))
             {
                 Main.quit();
                 break;
             }
             else
             {
-                System.out.println("Valid inputs: A, S and D.\n");
+                System.out.println("Valid inputs: Q, W and E.\n");
             }
         }
     }
@@ -58,36 +66,42 @@ public class Menu
     public static void quizes()
     {
         System.out.println("--------------------------------------------------------------");
-        System.out.println("MENU - QUIZES\nA. Croatia\nS. League of Legends\nD. Geography\nF. Back\n");
+        System.out.println("MENU - QUIZES\nQ. Croatia\nW. League of Legends\nE. Geography\nR. Back\n");
      
         while (true) 
         {
             String selection = input.nextLine();
             selection = selection.toLowerCase();
             
-            if(selection.equals("a"))
+            if(selection.equals("q"))
             {
-                Quizes.a();
+                Quizes.quiz = 0;
+                Quizes.quiz0();
+                Game.start();
                 break;
             }
-            else if(selection.equals("s"))
+            else if(selection.equals("w"))
             {
-                Quizes.b();
+                Quizes.quiz = 1;
+                Quizes.quiz1();
+                Game.start();
                 break;
             }
-            else if(selection.equals("d"))
+            else if(selection.equals("e"))
             {
-                Quizes.c();
+                Quizes.quiz = 2;
+                Quizes.quiz2();
+                Game.start();
                 break;
             }
-            else if(selection.equals("f"))
+            else if(selection.equals("r"))
             {
                 start();
                 break;
             }
             else
             {
-                System.out.println("Valid inputs: A, S, D and F.\n");
+                System.out.println("Valid inputs: Q, W, E and R.\n");
             }
         }
     }
