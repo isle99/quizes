@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Database
 {
     public ArrayList<Quiz> quizes;
+    public QuizesUI quizesUI;
 
     public Database()
     {
@@ -13,14 +14,4 @@ public class Database
     {
         quizes.add(quiz);
     }
-
-    /*public String list()
-    {
-        String theList = "";
-        for (Quiz quiz : quizes )
-        {            
-             theList = theList + quiz.getDetails() +"\n";
-        }    
-        return theList;
-    }*/
 }

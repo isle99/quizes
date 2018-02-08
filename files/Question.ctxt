@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Question
+comment1.params=question
+comment1.target=Question(java.lang.String)
+comment2.params=answer
+comment2.target=void\ addAnswers(java.lang.String)
+comment3.params=correctAnswer
+comment3.target=void\ addCorrectAnswer(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getQuestion()
+comment5.params=index
+comment5.target=java.lang.String\ getAnswer(int)
+comment6.params=
+comment6.target=int\ getNumberOfAnswers()
+comment7.params=
+comment7.target=java.lang.String\ getCorrectAnswer()
+numComments=8
