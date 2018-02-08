@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Quiz
+comment1.params=name
+comment1.target=Quiz(java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment3.params=question
+comment3.target=void\ addQuestion(java.lang.String)
+comment4.params=answer
+comment4.target=void\ addAnswers0(java.lang.String)
+comment5.params=answer
+comment5.target=void\ addAnswers1(java.lang.String)
+comment6.params=answer
+comment6.target=void\ addAnswers2(java.lang.String)
+comment7.params=correctAnswer
+comment7.target=void\ addCorrectAnswer(java.lang.String)
+numComments=8

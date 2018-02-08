@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Database
+comment1.params=
+comment1.target=Database()
+comment2.params=quiz
+comment2.target=void\ addQuiz(Quiz)
+numComments=3

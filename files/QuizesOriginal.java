@@ -1,8 +1,7 @@
 import java.util.*;
 
-public class Quizes
+public class QuizesOriginal
 {      
-    public static int quiz;
     public static int numberOfQuestions;
     public static ArrayList<String> questionList = new ArrayList<String>();
     public static ArrayList<String> questionAnswer0 = new ArrayList<String>();
@@ -11,20 +10,23 @@ public class Quizes
     public static ArrayList<String> questionAnswer3 = new ArrayList<String>();
     public static ArrayList<String> questionAnswer4 = new ArrayList<String>();
     public static ArrayList<String> questionCorrectAnswers = new ArrayList<String>();
-    public static ArrayList<Integer> questionShown = new ArrayList<Integer>();
     
-    public Quizes ()
+    public QuizesOriginal()
     {
        
     }
     
-    public static void quiz0()
+    public static void croatia()
     {
         questionList.add("What is the capital of Croatia?");
         questionAnswer0.add("Osijek");
         questionAnswer0.add("Zagreb");
         questionAnswer0.add("Split");
-        questionAnswer0.add("Dubrovnik");
+        questionAnswer0.add("Zadar");
+        questionAnswer0.add("Umag");
+        questionAnswer0.add("Vinkovci");
+        questionAnswer0.add("Pozega");
+        questionAnswer0.add("Ilok");
         questionCorrectAnswers.add("s");
         
         questionList.add("What famous inventor was from Croatia?");
@@ -54,7 +56,7 @@ public class Quizes
         numberOfQuestions = questionList.size();
     }
     
-    public static void quiz1()
+    public static void leagueOfLegends()
     {
         questionList.add("What is the highest rank in Leauge of Legends");
         questionAnswer0.add("Master");
@@ -89,7 +91,7 @@ public class Quizes
         numberOfQuestions = questionList.size();
     }
     
-    public static void quiz2()
+    public static void geography()
     {
         questionAnswer0.add("Los Angeles");
         questionAnswer0.add("New York");
