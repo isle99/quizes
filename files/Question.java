@@ -34,7 +34,7 @@ public class Question
         return correctAnswer;
     }
     
-    public void addAnswers(String answer)
+    public void addAnswer(String answer)
     {
         answers.add(answer);
     }

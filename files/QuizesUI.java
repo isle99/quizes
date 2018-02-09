@@ -4,9 +4,6 @@ import java.io.*;
 public class QuizesUI
 {
     public Database database;
-    public Quiz quiz0;
-    public Quiz quiz1;
-    public Quiz quiz2;
     public Quiz quiz;
     public ArrayList<String> inputsMenu;
     public ArrayList<String> inputsQuiz;
@@ -103,6 +100,7 @@ public class QuizesUI
         {
             System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + database.getQuiz(i).getName());
         }
+        System.out.println();
         
         boolean run = true;
         while (run)
@@ -148,12 +146,45 @@ public class QuizesUI
         System.out.println("--------------------------------------------------------------");
         System.out.println("MENU - QUIZES - ADD QUIZ\n");
      
-        System.out.println("Type a name to create the quiz.\n");
+        System.out.println("Type the name of the quiz:\n");
         String name = scanner.nextLine();
         //String quizName = "quiz" + quizNumbers.get(database.getNumberOfQuizes());
         Quiz newQuiz = new Quiz(name);
-        database.addQuiz(quiz0);
+        database.addQuiz(newQuiz);
         numberOfQuizes = database.getNumberOfQuizes();
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Type the number of questions:\n");
+        int loop = scanner.nextInt();
+        scanner.nextLine();
+        for(int i = 0; i < loop; i++)
+        {    
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Type the " + (i + 1) + ". question:\n");
+            String question = scanner.nextLine();
+            Question newQuestion = new Question(question);
+            newQuiz.addQuestion(newQuestion);
+            
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Type the number of answers:\n");
+            int loop1 = scanner.nextInt();
+            scanner.nextLine();
+            for(int j = 0; j < loop1; j++)
+            {
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("Type the " + (j + 1) + ". answer:\n");
+                String answer = scanner.nextLine();
+                newQuestion.addAnswer(answer);
+            }
+            
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Type the correct answer for question " + (i +1) + ":\n");
+            String correctAnswer = scanner.nextLine();
+            newQuestion.setCorrectAnswer(correctAnswer);
+            
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Quiz created.\n");
+        }
         
         menu();
     }
@@ -199,10 +230,10 @@ public class QuizesUI
             
             //QUESTION
             System.out.println(quiz.questions.get(choice).getQuestion());
-            for(int i = 0; i < quiz.questions.get(i).answers.size(); i++)
+            for(int i = 0; i < quiz.questions.get(choice).getNumberOfAnswers(); i++)
             {
-                System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + quiz.questions.get(i).getAnswer(i));
-                numberOfAnswers = quiz.questions.get(i).getNumberOfAnswers();
+                System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + quiz.questions.get(choice).getAnswer(i));
+                numberOfAnswers = quiz.questions.get(choice).getNumberOfAnswers();
             }
             System.out.println();
             
