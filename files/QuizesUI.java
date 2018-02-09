@@ -7,7 +7,6 @@ public class QuizesUI
     public Quiz quiz;
     public ArrayList<String> inputsMenu;
     public ArrayList<String> inputsQuiz;
-    //public ArrayList<Integer> quizNumbers;
     public ArrayList<Integer> questionsShown;
     public Random randomizer;
     public Scanner scanner;
@@ -31,9 +30,6 @@ public class QuizesUI
         inputsQuiz = new ArrayList<String>();
         String[] inputsQuizArray = new String[] {"a","s","d","f","g","h","j","k"};
         inputsQuiz.addAll(Arrays.asList(inputsQuizArray));
-        //quizNumbers = new ArrayList<Integer>();
-        //Integer[] quizNumbersArray = new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25};
-        //quizNumbers.addAll(Arrays.asList(quizNumbersArray));
         randomizer = new Random();
         scanner = new Scanner(System.in);
         questionsShown = new ArrayList<Integer>();
@@ -94,7 +90,7 @@ public class QuizesUI
         numberOfQuizes = database.getNumberOfQuizes();
         
         System.out.println("--------------------------------------------------------------");
-        System.out.println("MENU - QUIZES\nQ. Add Quiz\nW. Back\n");
+        System.out.println("QUIZES\nQ. New Quiz\nW. Back\n");
      
         for(int i = 0; i < numberOfQuizes; i++)
         {
@@ -144,47 +140,80 @@ public class QuizesUI
     public void addQuiz()
     {
         System.out.println("--------------------------------------------------------------");
-        System.out.println("MENU - QUIZES - ADD QUIZ\n");
+        System.out.println("NEW QUIZ - NAME\nQ. Cancel\n");
      
         System.out.println("Type the name of the quiz:\n");
         String name = scanner.nextLine();
-        //String quizName = "quiz" + quizNumbers.get(database.getNumberOfQuizes());
+        if(name == "Q")
+        {
+            quizes();
+        }
+        for(int k = 0; k < database.getNumberOfQuizes(); k++)
+        {
+            while(name.equals(database.getQuiz(k).getName()))
+            {
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("NEW QUIZ - NAME\nQ. Cancel\n");
+                System.out.println("Name taken. Choose a different name:\n");
+                name = scanner.nextLine();
+                if(name == "Q")
+                {
+                    quizes();
+                }
+            }
+        }
         Quiz newQuiz = new Quiz(name);
         database.addQuiz(newQuiz);
         numberOfQuizes = database.getNumberOfQuizes();
         
         System.out.println("--------------------------------------------------------------");
+        System.out.println("NEW QUIZ - QUESTIONS\nQ. Cancel\n");
         System.out.println("Type the number of questions:\n");
         int loop = scanner.nextInt();
         scanner.nextLine();
         for(int i = 0; i < loop; i++)
         {    
             System.out.println("--------------------------------------------------------------");
+            System.out.println("NEW QUIZ - QUESTIONS\nQ. Cancel\n");
             System.out.println("Type the " + (i + 1) + ". question:\n");
             String question = scanner.nextLine();
+            if(question == "Q")
+            {
+                quizes();
+            }
             Question newQuestion = new Question(question);
             newQuiz.addQuestion(newQuestion);
             
             System.out.println("--------------------------------------------------------------");
+            System.out.println("NEW QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
             System.out.println("Type the number of answers:\n");
             int loop1 = scanner.nextInt();
             scanner.nextLine();
             for(int j = 0; j < loop1; j++)
             {
                 System.out.println("--------------------------------------------------------------");
+                System.out.println("NEW QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
                 System.out.println("Type the " + (j + 1) + ". answer:\n");
                 String answer = scanner.nextLine();
+                if(answer == "Q")
+                {
+                    quizes();
+                }
                 newQuestion.addAnswer(answer);
             }
             
             System.out.println("--------------------------------------------------------------");
+            System.out.println("NEW QUIZ - QUESTION - CORRECT ANSWER\nQ. Cancel\n");
             System.out.println("Type the correct answer for question " + (i +1) + ":\n");
             String correctAnswer = scanner.nextLine();
+            if(correctAnswer == "Q")
+            {
+                quizes();
+            }
             newQuestion.setCorrectAnswer(correctAnswer);
-            
-            System.out.println("--------------------------------------------------------------");
-            System.out.println("Quiz created.\n");
         }
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Quiz created.\n");
         
         menu();
     }
