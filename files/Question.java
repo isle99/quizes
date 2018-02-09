@@ -13,16 +13,6 @@ public class Question
         answers = new ArrayList<String>();
     }
     
-    public void addAnswers(String answer)
-    {
-        answers.add(answer);
-    }
-    
-    public void addCorrectAnswer(String correctAnswer)
-    {
-        this.correctAnswer = correctAnswer;
-    }
-    
     public String getQuestion()
     {
         return question;
@@ -35,11 +25,33 @@ public class Question
     
     public int getNumberOfAnswers()
     {
+        numberOfAnswers = answers.size();
         return numberOfAnswers;
     }
     
     public String getCorrectAnswer()
     {
         return correctAnswer;
+    }
+    
+    public void addAnswers(String answer)
+    {
+        answers.add(answer);
+    }
+    
+    public void removeAnswer(int index)
+    {
+        answers.remove(index);
+    }
+    
+    public void removeAllAnswers()
+    {
+        answers.clear();
+        numberOfAnswers= answers.size();
+    }
+    
+    public void setCorrectAnswer(String correctAnswer)
+    {
+        this.correctAnswer = correctAnswer;
     }
 }

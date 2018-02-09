@@ -12,7 +12,6 @@ public class Quiz
         this.name = name;
         numberOfQuestions = 0;
         questions = new ArrayList<Question>();
-        questionCorrectAnswers = new ArrayList<String>();
     }
     
     public String getName()
@@ -25,9 +24,26 @@ public class Quiz
         return numberOfQuestions;
     }
     
+    public Question getQuestion(int index)
+    {
+        return questions.get(index);
+    }
+    
     public void addQuestion(Question question)
     {
         questions.add(question);
+        numberOfQuestions = questions.size();
+    }
+    
+    public void removeQuestion(int index)
+    {
+        questions.remove(index);
+        numberOfQuestions = questions.size();
+    }
+    
+    public void removeAllQuestions()
+    {
+        questions.clear();
         numberOfQuestions = questions.size();
     }
 }
