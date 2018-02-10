@@ -1,11 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Quiz
 {   
     public String name;
     public ArrayList<Question> questions;
     public int numberOfQuestions;
-    public ArrayList<String> questionCorrectAnswers;
     
     public Quiz(String name)
     {
@@ -19,14 +18,14 @@ public class Quiz
         return name;
     }
     
-    public int getNumberOfQuestions()
-    {
-        return numberOfQuestions;
-    }
-    
     public Question getQuestion(int index)
     {
         return questions.get(index);
+    }
+    
+    public int getNumberOfQuestions()
+    {
+        return numberOfQuestions;
     }
     
     public void addQuestion(Question question)
@@ -45,5 +44,10 @@ public class Quiz
     {
         questions.clear();
         numberOfQuestions = questions.size();
+    }
+    
+    public void setName()
+    {
+        this.name = name;
     }
 }

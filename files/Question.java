@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Question
 {   
@@ -23,15 +23,15 @@ public class Question
         return answers.get(index);
     }
     
+    public String getCorrectAnswer()
+    {
+        return correctAnswer;
+    }
+    
     public int getNumberOfAnswers()
     {
         numberOfAnswers = answers.size();
         return numberOfAnswers;
-    }
-    
-    public String getCorrectAnswer()
-    {
-        return correctAnswer;
     }
     
     public void addAnswer(String answer)

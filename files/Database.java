@@ -31,7 +31,7 @@ public class Database
         quizes.remove(index);
     }
     
-    public void removeQuizes()
+    public void removeAllQuizes()
     {
         quizes.clear();
     }

@@ -4,18 +4,18 @@ import java.io.*;
 public class QuizesUI
 {
     public Database database;
-    public Quiz quiz;
     public ArrayList<String> inputsMenu;
     public ArrayList<String> inputsQuiz;
-    public ArrayList<Integer> questionsShown;
     public Random randomizer;
     public Scanner scanner;
     public int round;
     public int score;
     public int numberOfQuizes;
+    public Quiz quiz;
     public int numberOfQuestions;
     public int numberOfAnswers;
     public int choice;
+    public ArrayList<Integer> questionsShown;
     public float percent;
     public boolean same;
     public String selection;
@@ -47,6 +47,7 @@ public class QuizesUI
     
     public void menu()
     {   
+        //RESET
         if (round > 0)
         {
             questionsShown.clear();
@@ -90,7 +91,7 @@ public class QuizesUI
         numberOfQuizes = database.getNumberOfQuizes();
         
         System.out.println("--------------------------------------------------------------");
-        System.out.println("QUIZES\nQ. New Quiz\nW. Back\n");
+        System.out.println("QUIZES\nQ. Add Quiz\nW. Remove Quiz\nE. Back\n");
      
         for(int i = 0; i < numberOfQuizes; i++)
         {
@@ -121,6 +122,11 @@ public class QuizesUI
             }
             else if(selection.equals("w"))
             {
+                removeQuiz();
+                run = false;
+            }
+            else if(selection.equals("e"))
+            {
                 menu();
                 run = false;
             }
@@ -140,11 +146,11 @@ public class QuizesUI
     public void addQuiz()
     {
         System.out.println("--------------------------------------------------------------");
-        System.out.println("NEW QUIZ - NAME\nQ. Cancel\n");
+        System.out.println("ADD QUIZ - NAME\nQ. Cancel\n");
      
         System.out.println("Type the name of the quiz:\n");
         String name = scanner.nextLine();
-        if(name == "Q")
+        if(name.equals("q"))
         {
             quizes();
         }
@@ -153,10 +159,10 @@ public class QuizesUI
             while(name.equals(database.getQuiz(k).getName()))
             {
                 System.out.println("--------------------------------------------------------------");
-                System.out.println("NEW QUIZ - NAME\nQ. Cancel\n");
+                System.out.println("ADD QUIZ - NAME\nQ. Cancel\n");
                 System.out.println("Name taken. Choose a different name:\n");
                 name = scanner.nextLine();
-                if(name == "Q")
+                if(name.equals("q"))
                 {
                     quizes();
                 }
@@ -167,55 +173,174 @@ public class QuizesUI
         numberOfQuizes = database.getNumberOfQuizes();
         
         System.out.println("--------------------------------------------------------------");
-        System.out.println("NEW QUIZ - QUESTIONS\nQ. Cancel\n");
+        System.out.println("ADD QUIZ - QUESTIONS\nQ. Cancel\n");
         System.out.println("Type the number of questions:\n");
-        int loop = scanner.nextInt();
-        scanner.nextLine();
+        String numberOfQuestions = scanner.nextLine();
+        if(numberOfQuestions.equals("q"))
+        {
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Do you want to save the quiz:\nQ. Yes\nW. No\n");
+            selection = scanner.nextLine();
+            selection = selection.toLowerCase();
+            if(selection.equals("q"))
+            {
+                quizes();
+            }
+            else if(selection.equals("w"))
+            {
+                database.removeQuiz(numberOfQuizes - 1);
+                quizes();
+            }
+        }
+        
+        int loop = Integer.parseInt(numberOfQuestions);
         for(int i = 0; i < loop; i++)
         {    
             System.out.println("--------------------------------------------------------------");
-            System.out.println("NEW QUIZ - QUESTIONS\nQ. Cancel\n");
+            System.out.println("ADD QUIZ - QUESTIONS\nQ. Cancel\n");
             System.out.println("Type the " + (i + 1) + ". question:\n");
             String question = scanner.nextLine();
-            if(question == "Q")
+            if(question.equals("q"))
             {
-                quizes();
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("Do you want to save the quiz:\nQ. Yes\nW. No\n");
+                selection = scanner.nextLine();
+                selection = selection.toLowerCase();
+                if(selection.equals("q"))
+                {
+                    quizes();
+                }
+                else if(selection.equals("w"))
+                {
+                    database.removeQuiz(numberOfQuizes - 1);
+                    quizes();
+                }
             }
             Question newQuestion = new Question(question);
             newQuiz.addQuestion(newQuestion);
             
             System.out.println("--------------------------------------------------------------");
-            System.out.println("NEW QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
+            System.out.println("ADD QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
             System.out.println("Type the number of answers:\n");
-            int loop1 = scanner.nextInt();
-            scanner.nextLine();
-            for(int j = 0; j < loop1; j++)
+            String numberOfAnswers = scanner.nextLine();
+            if(numberOfAnswers.equals("q"))
             {
                 System.out.println("--------------------------------------------------------------");
-                System.out.println("NEW QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
-                System.out.println("Type the " + (j + 1) + ". answer:\n");
-                String answer = scanner.nextLine();
-                if(answer == "Q")
+                System.out.println("Do you want to save the quiz:\nQ. Yes\nW. No\n");
+                selection = scanner.nextLine();
+                selection = selection.toLowerCase();
+                if(selection.equals("q"))
                 {
                     quizes();
+                }
+                else if(selection.equals("w"))
+                {
+                    database.removeQuiz(numberOfQuizes - 1);
+                    quizes();
+                }
+            }
+            int loopJ = Integer.parseInt(numberOfAnswers);
+            for(int j = 0; j < loopJ; j++)
+            {
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("ADD QUIZ - QUESTION - ANSWERS\nQ. Cancel\n");
+                System.out.println("Type the " + (j + 1) + ". answer:\n");
+                String answer = scanner.nextLine();
+                if(answer.equals("q"))
+                {
+                    System.out.println("--------------------------------------------------------------");
+                    System.out.println("Do you want to save the quiz:\nQ. Yes\nW. No\n");
+                    selection = scanner.nextLine();
+                    selection = selection.toLowerCase();
+                    if(selection.equals("q"))
+                    {
+                        quizes();
+                    }
+                    else if(selection.equals("w"))
+                    {
+                        database.removeQuiz(numberOfQuizes - 1);
+                        quizes();
+                    }
                 }
                 newQuestion.addAnswer(answer);
             }
             
             System.out.println("--------------------------------------------------------------");
-            System.out.println("NEW QUIZ - QUESTION - CORRECT ANSWER\nQ. Cancel\n");
+            System.out.println("ADD QUIZ - QUESTION - CORRECT ANSWER\nQ. Cancel\n");
             System.out.println("Type the correct answer for question " + (i +1) + ":\n");
             String correctAnswer = scanner.nextLine();
-            if(correctAnswer == "Q")
+            if(correctAnswer.equals("q"))
             {
-                quizes();
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("Do you want to save the quiz:\nQ. Yes\nW. No\n");
+                selection = scanner.nextLine();
+                selection = selection.toLowerCase();
+                if(selection.equals("q"))
+                {
+                    quizes();
+                }
+                else if(selection.equals("w"))
+                {
+                    database.removeQuiz(numberOfQuizes - 1);
+                    quizes();
+                }
             }
             newQuestion.setCorrectAnswer(correctAnswer);
         }
         System.out.println("--------------------------------------------------------------");
-        System.out.println("Quiz created.\n");
+        System.out.println(name + " created.");
         
-        menu();
+        quizes();
+    }
+    
+    public void removeQuiz()
+    {
+        numberOfQuizes = database.getNumberOfQuizes();
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("REMOVE QUIZ\nQ. Cancel\n");
+     
+        for(int i = 0; i < numberOfQuizes; i++)
+        {
+            System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + database.getQuiz(i).getName());
+        }
+        System.out.println();
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("Type the name of the quiz you want to remove:\n");
+        boolean run = true;
+        boolean found = false;
+        while (run)
+        {
+            String selection = scanner.nextLine();
+            
+            for(int i = 0; i < database.getNumberOfQuizes(); i++)
+            {
+                if(selection.equals(database.getQuiz(i).getName()))
+                {
+                    database.removeQuiz(i);
+                    System.out.println("--------------------------------------------------------------");
+                    System.out.println(selection + " removed.");
+                    found = true;
+                }
+            }
+            
+            if(found == true)
+            {
+                quizes();
+                run = false;
+            }
+            else if(selection.equals("q"))
+            {
+                quizes();
+                run = false;
+            }
+            else 
+            {
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("There is no quiz with that name. Try again:\n");
+            }
+        }
     }
     
     public void startQuiz()
