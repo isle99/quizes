@@ -23,6 +23,16 @@ public class Database implements Serializable
     {
         return quizes.size();
     }
+    
+    public Highscore getHighscore(int index)
+    {
+        return highscores.get(index);
+    }
+    
+    public int getNumberOfHighscores()
+    {
+        return highscores.size();
+    }
 
     public void addQuiz(Quiz quiz)
     {
@@ -37,16 +47,6 @@ public class Database implements Serializable
     public void removeAllQuizes()
     {
         quizes.clear();
-    }
-    
-    public Highscore getHighscore(int index)
-    {
-        return highscores.get(index);
-    }
-    
-    public int getNumberOfHighscores()
-    {
-        return highscores.size();
     }
 
     public void addHighscore(Highscore highscore)

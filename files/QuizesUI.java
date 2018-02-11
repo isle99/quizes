@@ -1,11 +1,11 @@
 import java.util.*;
 import java.io.*;
 
-public class QuizesUI
+public class QuizesUI implements Serializable
 {
     public Database database;
-    public Read read;
     public Write write;
+    public Read read;
     public ArrayList<String> inputsMenu;
     public ArrayList<String> inputsQuiz;
     public Random randomizer;
@@ -28,6 +28,8 @@ public class QuizesUI
     
     public QuizesUI()
     {
+        read = new Read();
+        write = new Write();
         database = new Database();
         inputsMenu = new ArrayList<String>();
         String[] inputsMenuArray = new String[] {"q","w","e","r","t","y","u","i"};
@@ -41,12 +43,15 @@ public class QuizesUI
         round = -1;
         score = 0;
         
-        addOriginalQuizes();
+        Highscore newHighscore = read.deserialzeHighscore(".\\database\\highscore.ser");
+        highscore = newHighscore;
+        
+        //addOriginalQuizes();
+        menu();
     }
     
     public static void main(String[] args)
     {   
-        Database database = new Database();
         QuizesUI quizesUI = new QuizesUI();
     }
     
@@ -55,15 +60,18 @@ public class QuizesUI
         //NAME
         if (round == -1)
         {
+            for (int i = 0; i < database.getNumberOfHighscores(); i++)
+            {
+                Highscore newHighscore = read.deserialzeHighscore(".\\database\\highscore" + i + ".ser");
+                highscore = newHighscore;
+            }
             System.out.println("--------------------------------------------------------------");
             System.out.println("Enter your name:\n");
             name = scanner.nextLine();
             round = round + 1;
-            
-            Highscore newHighscore = new Highscore(name, 0, 0);
-            database.addHighscore(newHighscore);
-            highscore = newHighscore;
+            database.addHighscore(highscore);
             numberOfHighscores = database.getNumberOfHighscores();
+            write.serializeHighscore(highscore);
         }
         
         //RESET
@@ -257,6 +265,7 @@ public class QuizesUI
         Quiz newQuiz = new Quiz(selectionAddQuiz, database);
         database.addQuiz(newQuiz);
         numberOfQuizes = database.getNumberOfQuizes();
+        write.serializeQuiz(newQuiz);
         
         //NUMBER OF QUESTIONS
         System.out.println("--------------------------------------------------------------");
@@ -284,6 +293,7 @@ public class QuizesUI
             }
             Question newQuestion = new Question(selectionAddQuiz, newQuiz);
             newQuiz.addQuestion(newQuestion);
+            write.serializeQuestion(newQuestion, newQuiz);
             
             //NUMBER OF ANSWERS
             System.out.println("--------------------------------------------------------------");
@@ -324,6 +334,9 @@ public class QuizesUI
             }
             newQuestion.setCorrectAnswer(correctAnswer);
         }
+        
+        write.serializeQuiz(newQuiz);
+        write.serializeDatabase(database);
         System.out.println("--------------------------------------------------------------");
         System.out.println(newQuiz.getName() + " created.");
         
@@ -682,6 +695,7 @@ public class QuizesUI
         database.getHighscore(database.highscores.indexOf(highscore)).setScore(database.getHighscore(database.highscores.indexOf(highscore)).getScore() + score);
         database.getHighscore(database.highscores.indexOf(highscore)).setQuestionsAnswered(database.getHighscore(database.highscores.indexOf(highscore)).getQuestionsAnswered() + round);
         database.getHighscore(database.highscores.indexOf(highscore)).setPercent();
+        write.serializeHighscore(highscore);
         
         boolean run = true;
         while (run) 
@@ -868,7 +882,6 @@ public class QuizesUI
         Write write = new Write();
         
         write.serializeDatabase(database);
-        write.serializeHighscores(highscore);
         
         write.serializeQuiz(quiz0);
         write.serializeQuestion(question0, quiz0);

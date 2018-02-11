@@ -1,9 +1,7 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.File;
+import java.io.*;
 
-public class Write {
+public class Write
+{
     
     public void serializeDatabase(Database database) {
 
@@ -41,14 +39,28 @@ public class Write {
         }
     }
     
-    public void serializeHighscores(Highscore highscore) {
+    public void serializeHighscore(Highscore highscore) {
 
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
 
+        File currentFolder = new File(".\\database");
+        File workingFolder = new File(currentFolder, "highscores");
+        if (!workingFolder.exists()) {
+            workingFolder.mkdir();
+        }      
+        System.out.println(workingFolder.getAbsolutePath());
+        
         try {
-
-            fout = new FileOutputStream(".\\database\\highscore.ser");
+            
+            File currentFolder1 = new File(".\\database\\highscores");
+            File workingFolder1 = new File(currentFolder1, "highscore" + highscore.getNumber());
+            if (!workingFolder1.exists()) {
+                workingFolder1.mkdir();
+            }
+            System.out.println(workingFolder.getAbsolutePath());
+            
+            fout = new FileOutputStream(".\\database\\highscores\\highscore" + highscore.getNumber() + ".ser");
             oos = new ObjectOutputStream(fout);
             oos.writeObject(highscore);
 

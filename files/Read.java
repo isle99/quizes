@@ -1,8 +1,7 @@
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
-public class Read {
+public class Read
+{
     
 	public Database deserialzeDatabase(String filename) {
 
