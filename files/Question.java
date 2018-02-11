@@ -1,21 +1,58 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Question
+public class Question implements Serializable
 {   
+    private static final long serialVersionUID = 1L;
+    
+    public Database database;
+    public Quiz quiz;
     public String question;
+    public int number;
     public ArrayList<String> answers;
     public int numberOfAnswers;
     public String correctAnswer;
     
-    public Question(String question)
+    public Question(String question, Quiz quiz)
     {
+        this.quiz = quiz;
         this.question = question;
         answers = new ArrayList<String>();
+        number = 0;
+        boolean run = true;
+        while(run == true)
+        {
+            boolean found = true;
+            if (quiz.getNumberOfQuestions() == 0)
+            {
+                break;
+            }
+            for (int i = 0; i < quiz.getNumberOfQuestions(); i++)
+            {
+                if (quiz.getQuestion(i).getNumber() != number)
+                {
+                    found = false;
+                }
+                else
+                {
+                    number = number + 1;
+                }
+            }
+            if (found == false)
+            {
+                run = false;
+            }
+        }
     }
     
     public String getQuestion()
     {
         return question;
+    }
+    
+    public int getNumber()
+    {
+        return number;
     }
     
     public String getAnswer(int index)

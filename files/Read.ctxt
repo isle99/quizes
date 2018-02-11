@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Read
+comment1.params=filename
+comment1.target=Database\ deserialzeDatabase(java.lang.String)
+comment2.params=filename
+comment2.target=Highscore\ deserialzeHighscore(java.lang.String)
+comment3.params=filename
+comment3.target=Quiz\ deserialzeQuiz(java.lang.String)
+comment4.params=filename
+comment4.target=Question\ deserialzeQuestion(java.lang.String)
+numComments=5

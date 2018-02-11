@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Highscore
+public class Highscore implements Serializable
 {   
+    private static final long serialVersionUID = 1L;
+    
     public String name;
     public int score;
     public int questionsAnswered;
