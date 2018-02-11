@@ -11,7 +11,9 @@ public class QuizesUI
     public int round;
     public int score;
     public int numberOfQuizes;
+    public int numberOfHighscores;
     public Quiz quiz;
+    public Highscore highscore;
     public int numberOfQuestions;
     public int numberOfAnswers;
     public int choice;
@@ -48,6 +50,20 @@ public class QuizesUI
     
     public void menu()
     {   
+        //NAME
+        if (round == -1)
+        {
+            System.out.println("--------------------------------------------------------------");
+            System.out.println("Enter your name:\n");
+            name = scanner.nextLine();
+            round = round + 1;
+            
+            Highscore newHighscore = new Highscore(name, 0, 0);
+            database.addHighscore(newHighscore);
+            highscore = newHighscore;
+            numberOfHighscores = database.getNumberOfHighscores();
+        }
+        
         //RESET
         if (round > 0)
         {
@@ -72,7 +88,7 @@ public class QuizesUI
             }
             else if(selection.equals("w"))
             {
-                quit();
+                highscores();
                 run = false;
             }
             else if(selection.equals("e"))
@@ -132,6 +148,85 @@ public class QuizesUI
         }
     }
     
+    public void highscores()
+    {
+        numberOfHighscores = database.getNumberOfHighscores();
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("HIGHSCORES\nQ. Back\n");
+     
+        for(int i = 0; i < numberOfHighscores; i++)
+        {
+            System.out.print((i + 1) + ". " + database.getHighscore(i).getName() + " - " + database.getHighscore(i).getScore());
+            System.out.println("/" + database.getHighscore(i).getQuestionsAnswered() + " - " + database.getHighscore(i).getPercent() + "%");
+        }
+        System.out.println();
+        
+        while (true)
+        {
+            String selection = scanner.nextLine();
+            selection = selection.toLowerCase();
+                        
+            if(selection.equals("q"))
+            {
+                menu();
+                break;
+            }
+            else 
+            {
+                System.out.println("--------------------------------------------------------------");
+                System.out.print("Valid inputs: Q.");
+            }
+        }
+    }
+    
+    public void startQuiz()
+    {
+        numberOfQuizes = database.getNumberOfQuizes();
+        
+        System.out.println("--------------------------------------------------------------");
+        System.out.println("START QUIZ\nQ. Back\n");
+     
+        for(int i = 0; i < numberOfQuizes; i++)
+        {
+            System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + database.getQuiz(i).getName());
+        }
+        System.out.println();
+        
+        boolean run = true;
+        while (run)
+        {
+            String selection = scanner.nextLine();
+            selection = selection.toLowerCase();
+            
+            for(int i = 0; i < database.getNumberOfQuizes(); i++)
+            {
+                if(selection.equals(inputsQuiz.get(i)))
+                {
+                    quiz = database.getQuiz(i);
+                    play();
+                    run = false;
+                }
+            }
+            
+            if(selection.equals("q"))
+            {
+                quizes();
+                run = false;
+            }
+            else 
+            {
+                System.out.print("Valid inputs: ");
+                for(int i = 0; i < database.getNumberOfQuizes() - 1; i++)
+                {
+                    System.out.print(inputsQuiz.get(i).toUpperCase() + ", ");
+                }
+                System.out.print(inputsQuiz.get(database.getNumberOfQuizes() - 1).toUpperCase());
+                System.out.println(" and Q.\n");
+            }
+        }
+    }
+    
     public void addQuiz()
     {
         //NAME
@@ -168,7 +263,7 @@ public class QuizesUI
         selectionAddQuiz = scanner.nextLine();
         if(selectionAddQuiz.equals("q"))
         {
-            cancelRemoveQuiz();
+            cancel();
             return;
         }
         
@@ -182,7 +277,7 @@ public class QuizesUI
             String question = scanner.nextLine();
             if(selectionAddQuiz.equals("q"))
             {
-                cancelRemoveQuiz();
+                cancel();
                 return;
             }
             Question newQuestion = new Question(selectionAddQuiz);
@@ -195,7 +290,7 @@ public class QuizesUI
             selectionAddQuiz = scanner.nextLine();
             if(selectionAddQuiz.equals("q"))
             {
-                cancelRemoveQuiz();
+                cancel();
                 return;
             }
             
@@ -209,7 +304,7 @@ public class QuizesUI
                 selectionAddQuiz = scanner.nextLine();
                 if(selectionAddQuiz.equals("q"))
                 {
-                    cancelRemoveQuiz();
+                    cancel();
                     return;
                 }
                 newQuestion.addAnswer(selectionAddQuiz);
@@ -222,7 +317,7 @@ public class QuizesUI
             String correctAnswer = scanner.nextLine();
             if(selectionAddQuiz.equals("q"))
             {
-                cancelRemoveQuiz();
+                cancel();
                 return;
             }
             newQuestion.setCorrectAnswer(correctAnswer);
@@ -233,7 +328,7 @@ public class QuizesUI
         quizes();
     }
     
-    public void cancelRemoveQuiz()
+    public void cancel()
     {
         System.out.println("--------------------------------------------------------------");
         System.out.println("You haven't completed all the necessary fields.");
@@ -484,64 +579,8 @@ public class QuizesUI
         }
     }
     
-    public void startQuiz()
-    {
-        numberOfQuizes = database.getNumberOfQuizes();
-        
-        System.out.println("--------------------------------------------------------------");
-        System.out.println("START QUIZ\nQ. Back\n");
-     
-        for(int i = 0; i < numberOfQuizes; i++)
-        {
-            System.out.println(inputsQuiz.get(i).toUpperCase() + ". " + database.getQuiz(i).getName());
-        }
-        System.out.println();
-        
-        boolean run = true;
-        while (run)
-        {
-            String selection = scanner.nextLine();
-            selection = selection.toLowerCase();
-            
-            for(int i = 0; i < database.getNumberOfQuizes(); i++)
-            {
-                if(selection.equals(inputsQuiz.get(i)))
-                {
-                    quiz = database.getQuiz(i);
-                    play();
-                    run = false;
-                }
-            }
-            
-            if(selection.equals("q"))
-            {
-                quizes();
-                run = false;
-            }
-            else 
-            {
-                System.out.print("Valid inputs: ");
-                for(int i = 0; i < database.getNumberOfQuizes() - 1; i++)
-                {
-                    System.out.print(inputsQuiz.get(i).toUpperCase() + ", ");
-                }
-                System.out.print(inputsQuiz.get(database.getNumberOfQuizes() - 1).toUpperCase());
-                System.out.println(" and Q.\n");
-            }
-        }
-    }
-    
     public void play()
     {
-        //NAME
-        if (round == -1)
-        {
-            System.out.println("--------------------------------------------------------------");
-            System.out.println("Enter your name:\n");
-            name = scanner.nextLine();
-            round = round + 1;
-        }
-        
         int choice = randomizer.nextInt(quiz.questions.size());
         boolean found;
         while (round < quiz.questions.size())
@@ -637,6 +676,10 @@ public class QuizesUI
         System.out.println("Final score: \n" + score + " out of " + round + ".\n");
         System.out.println("Final percentage: \n" + percent + "%\n");
         System.out.println("Q. Main Menu\nW. Quit\n");
+        
+        database.getHighscore(database.highscores.indexOf(highscore)).setScore(database.getHighscore(database.highscores.indexOf(highscore)).getScore() + score);
+        database.getHighscore(database.highscores.indexOf(highscore)).setQuestionsAnswered(database.getHighscore(database.highscores.indexOf(highscore)).getQuestionsAnswered() + round);
+        database.getHighscore(database.highscores.indexOf(highscore)).setPercent();
         
         boolean run = true;
         while (run) 

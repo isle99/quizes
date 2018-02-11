@@ -3,11 +3,13 @@ import java.util.ArrayList;
 public class Database
 {
     public ArrayList<Quiz> quizes;
+    public ArrayList<Highscore> highscores;
     public QuizesUI quizesUI;
 
     public Database()
     {
         quizes = new ArrayList<Quiz>();
+        highscores = new ArrayList<Highscore>();
         addOriginalQuizes();
     }
     
@@ -34,6 +36,31 @@ public class Database
     public void removeAllQuizes()
     {
         quizes.clear();
+    }
+    
+    public Highscore getHighscore(int index)
+    {
+        return highscores.get(index);
+    }
+    
+    public int getNumberOfHighscores()
+    {
+        return highscores.size();
+    }
+
+    public void addHighscore(Highscore highscore)
+    {
+        highscores.add(highscore);
+    }
+    
+    public void removeHighscore(int index)
+    {
+        highscores.remove(index);
+    }
+    
+    public void removeAllHighscores()
+    {
+        highscores.clear();
     }
     
     public void addOriginalQuizes()
