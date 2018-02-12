@@ -39,24 +39,24 @@ public class Database implements Serializable
         quizes.add(quiz);
     }
     
-    public void removeQuiz(int index)
-    {
-        quizes.remove(index);
-    }
-    
-    public void removeAllQuizes()
-    {
-        quizes.clear();
-    }
-
     public void addHighscore(Highscore highscore)
     {
         highscores.add(highscore);
     }
     
+    public void removeQuiz(int index)
+    {
+        quizes.remove(index);
+    }
+
     public void removeHighscore(int index)
     {
         highscores.remove(index);
+    }
+    
+    public void removeAllQuizes()
+    {
+        quizes.clear();
     }
     
     public void removeAllHighscores()

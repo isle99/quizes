@@ -596,9 +596,9 @@ public class QuizesUI implements Serializable
     
     public void play()
     {
-        int choice = randomizer.nextInt(quiz.questions.size());
+        int choice = randomizer.nextInt(quiz.getNumberOfQuestions());
         boolean found;
-        while (round < quiz.questions.size())
+        while (round < quiz.getNumberOfQuestions())
         {
             found = false;
             same = questionsShown.contains(choice);

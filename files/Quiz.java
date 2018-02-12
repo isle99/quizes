@@ -24,7 +24,7 @@ public class Quiz implements Serializable
             boolean found = true;
             if (database.getNumberOfQuizes() == 0)
             {
-                break;
+                found = false;
             }
             for (int i = 0; i < database.getNumberOfQuizes(); i++)
             {
@@ -64,6 +64,11 @@ public class Quiz implements Serializable
         return numberOfQuestions;
     }
     
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
     public void addQuestion(Question question)
     {
         questions.add(question);
@@ -80,10 +85,5 @@ public class Quiz implements Serializable
     {
         questions.clear();
         numberOfQuestions = questions.size();
-    }
-    
-    public void setName(String name)
-    {
-        this.name = name;
     }
 }

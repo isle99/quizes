@@ -22,7 +22,7 @@ public class Highscore implements Serializable
             boolean found = true;
             if (database.getNumberOfHighscores() == 0)
             {
-                break;
+                found = false;
             }
             for (int i = 0; i < database.getNumberOfHighscores(); i++)
             {

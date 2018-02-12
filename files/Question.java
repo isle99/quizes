@@ -25,7 +25,7 @@ public class Question implements Serializable
             boolean found = true;
             if (quiz.getNumberOfQuestions() == 0)
             {
-                break;
+                found = false;
             }
             for (int i = 0; i < quiz.getNumberOfQuestions(); i++)
             {
@@ -76,6 +76,11 @@ public class Question implements Serializable
         answers.add(answer);
     }
     
+    public void setCorrectAnswer(String correctAnswer)
+    {
+        this.correctAnswer = correctAnswer;
+    }
+    
     public void removeAnswer(int index)
     {
         answers.remove(index);
@@ -85,10 +90,5 @@ public class Question implements Serializable
     {
         answers.clear();
         numberOfAnswers= answers.size();
-    }
-    
-    public void setCorrectAnswer(String correctAnswer)
-    {
-        this.correctAnswer = correctAnswer;
-    }
+    } 
 }
