@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Write
+public class Write implements Serializable
 {
     
     public void serializeDatabase(Database database) {
@@ -101,7 +101,7 @@ public class Write
     }
     
     public void serializeQuiz(Quiz quiz) {
-
+        
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
 

@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Read {
+public class Read implements Serializable {
     
 	public Database deserialzeDatabase(String filename) {
 

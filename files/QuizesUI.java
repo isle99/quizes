@@ -3,6 +3,7 @@ import java.io.*;
 
 public class QuizesUI implements Serializable
 {
+    public GUI gui;
     public Database database;
     public Write write;
     public Read read;
@@ -28,6 +29,7 @@ public class QuizesUI implements Serializable
     
     public QuizesUI()
     {
+        gui = new GUI();
         read = new Read();
         write = new Write();
         database = new Database();
@@ -50,11 +52,6 @@ public class QuizesUI implements Serializable
         menu();
     }
     
-    public static void main(String[] args)
-    {   
-        QuizesUI quizesUI = new QuizesUI();
-    }
-    
     public void menu()
     {   
         //NAME
@@ -65,9 +62,15 @@ public class QuizesUI implements Serializable
                 Highscore newHighscore = read.deserialzeHighscore(".\\database\\highscore" + i + ".ser");
                 highscore = newHighscore;
             }
+            
             System.out.println("--------------------------------------------------------------");
-            System.out.println("Enter your name:\n");
-            name = scanner.nextLine();
+            System.out.println("Enter your name in the textfield in the other window.\n");
+            while(gui.name.equals("nothing"))
+            {
+                name = gui.name;
+            }
+            System.out.println("Name = " + name);
+            
             round = round + 1;
             database.addHighscore(highscore);
             numberOfHighscores = database.getNumberOfHighscores();
