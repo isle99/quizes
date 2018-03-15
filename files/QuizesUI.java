@@ -3,7 +3,8 @@ import java.io.*;
 
 public class QuizesUI implements Serializable
 {
-    public GUI gui;
+    public SignUp signUp;
+    public Login login;
     public Database database;
     public Write write;
     public Read read;
@@ -30,7 +31,8 @@ public class QuizesUI implements Serializable
     
     public QuizesUI()
     {
-        gui = new GUI();
+        login = new Login();
+        signUp = login.signUp;
         read = new Read();
         write = new Write();
         database = new Database();
@@ -54,10 +56,10 @@ public class QuizesUI implements Serializable
         //CREATE ACCOUNT
         if (round == -1)
         {       
-            while(gui.run == true)
+            while(login.run == true)
             {
-                username = gui.username;
-                password = gui.password;
+                username = signUp.username;
+                password = signUp.password;
             }
             account = new Account(username, password, database);
             database.addAccount(account);
@@ -328,7 +330,6 @@ public class QuizesUI implements Serializable
         }
         
         write.serializeQuiz(newQuiz);
-        write.serializeDatabase(database);
         System.out.println("--------------------------------------------------------------");
         System.out.println(newQuiz.getName() + " created.");
         

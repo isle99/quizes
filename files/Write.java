@@ -52,8 +52,7 @@ public class Write implements Serializable
         if (!workingFolder.exists()) {
             
             workingFolder.mkdir();
-        }      
-        System.out.println(workingFolder.getAbsolutePath());
+        }
         
         try {
             
@@ -62,7 +61,6 @@ public class Write implements Serializable
                 
                 workingFolder1.mkdir();
             }
-            System.out.println(workingFolder.getAbsolutePath());
             
             fout = new FileOutputStream(".\\database\\accounts\\account" + account.getNumber() + ".ser");
             oos = new ObjectOutputStream(fout);
@@ -109,8 +107,7 @@ public class Write implements Serializable
         if (!workingFolder.exists()) {
             
             workingFolder.mkdir();
-        }      
-        System.out.println(workingFolder.getAbsolutePath());
+        }
         
         try {
             
@@ -120,7 +117,6 @@ public class Write implements Serializable
                 
                 workingFolder1.mkdir();
             }
-            System.out.println(workingFolder.getAbsolutePath());
             
             fout = new FileOutputStream(".\\database\\quizes\\quiz" + quiz.getNumber() + "\\quiz" + quiz.getNumber() + ".ser");
             oos = new ObjectOutputStream(fout);
@@ -167,8 +163,7 @@ public class Write implements Serializable
         if (!workingFolder.exists()) {
             
             workingFolder.mkdir();
-        }       
-        System.out.println(workingFolder.getAbsolutePath());
+        }
 
         try {
             

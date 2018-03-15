@@ -8,7 +8,6 @@ public class Database implements Serializable
     
     public ArrayList<Quiz> quizes;
     public ArrayList<Account> accounts;
-    int numberOfAccounts;
     public Read read;
 
     public Database()
@@ -24,7 +23,7 @@ public class Database implements Serializable
         
         //ACCOUNTS       
         int k = 0;
-        numberOfAccounts = new File(".\\database\\accounts\\").listFiles().length;
+        int numberOfAccounts = new File(".\\database\\accounts\\").listFiles().length;
        
         if (numberOfAccounts > 0)
         {
@@ -55,7 +54,6 @@ public class Database implements Serializable
             {
                 String currentQuestion = "question" + j;
                 Question question = read.deserialzeQuestion(".\\database\\quizes\\" + currentQuiz + "\\questions\\" + currentQuestion + ".ser");
-                quiz.addQuestion(question);
                 
                 j++;
             }

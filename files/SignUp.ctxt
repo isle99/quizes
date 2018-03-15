@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=SignUp
+comment1.params=
+comment1.target=SignUp()
+comment2.params=
+comment2.target=void\ makeFrame()
+comment3.params=evt
+comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment4.params=evt
+comment4.target=void\ signUp(java.awt.event.ActionEvent)
+comment5.params=
+comment5.target=void\ showFrame()
+numComments=6

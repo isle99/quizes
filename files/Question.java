@@ -5,7 +5,6 @@ public class Question implements Serializable
 {   
     private static final long serialVersionUID = 1L;
     
-    public Database database;
     public Quiz quiz;
     public String question;
     public int number;
