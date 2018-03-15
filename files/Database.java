@@ -22,37 +22,24 @@ public class Database implements Serializable
     {
         read = new Read();
         
-        //Accounts       
+        //ACCOUNTS       
         int k = 0;
-        try
+        numberOfAccounts = new File(".\\database\\accounts\\").listFiles().length;
+       
+        if (numberOfAccounts > 0)
         {
-             numberOfAccounts = new File(".\\database\\accounts\\").listFiles().length;
-        }
-        catch (NullPointerException ex)
-        {
-            File workingFolder1 = new File(".\\database\\accounts");
-            if (!workingFolder1.exists()) {
-                
-                workingFolder1.mkdir();
-            }
-        }
-        finally
-        {
-            if (numberOfAccounts > 0)
+            while(k < numberOfAccounts)
             {
-                while(k < numberOfAccounts)
-                {
-                    String currentAccount = "account" + k;
-                    
-                    Account account = read.deserialzeAccount(".\\database\\accounts\\" + currentAccount + ".ser");
-                    addAccount(account);
-        
-                    k++;
-                }
+                String currentAccount = "account" + k;
+                
+                Account account = read.deserialzeAccount(".\\database\\accounts\\" + currentAccount + ".ser");
+                addAccount(account);
+    
+                k++;
             }
         }
         
-        //Quizes
+        //QUIZES
         int i = 0;
         int numberOfQuizes = new File(".\\database\\quizes\\").listFiles().length;
         while(i < numberOfQuizes)
