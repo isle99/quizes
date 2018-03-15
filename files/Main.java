@@ -8,7 +8,9 @@ public class Main
 
     public static void main(String[] args)
     {   
-        
-        QuizesUI quizesUI = new QuizesUI();
+        Write write = new Write();
+        Database database = new Database();
+        write.serializeDatabase(database);
+        Login login = new Login();
     }
 }
