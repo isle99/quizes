@@ -45,9 +45,9 @@ public class Read implements Serializable {
 
 	}
 	
-	public Highscore deserialzeHighscore(String filename) {
+	public Account deserialzeAccount(String filename) {
 
-		Highscore highscore = null;
+		Account account = null;
 		FileInputStream fin = null;
 		ObjectInputStream ois = null;
 
@@ -55,7 +55,7 @@ public class Read implements Serializable {
 
 			fin = new FileInputStream(filename);
 			ois = new ObjectInputStream(fin);
-			highscore = (Highscore) ois.readObject();
+			account = (Account) ois.readObject();
 		} catch (Exception ex) {
 		    
 			ex.printStackTrace();
@@ -83,7 +83,7 @@ public class Read implements Serializable {
 			}
 		}
 
-		return highscore;
+		return account;
 	}
 	
 	public Quiz deserialzeQuiz(String filename) {

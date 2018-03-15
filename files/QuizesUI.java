@@ -14,9 +14,9 @@ public class QuizesUI implements Serializable
     public int round;
     public int score;
     public int numberOfQuizes;
-    public int numberOfHighscores;
+    public int numberOfAccounts;
     public Quiz quiz;
-    public Highscore highscore;
+    public Account account;
     public int numberOfQuestions;
     public int numberOfAnswers;
     public int choice;
@@ -25,7 +25,8 @@ public class QuizesUI implements Serializable
     public boolean same;
     public String selection;
     public String selectionAddQuiz;
-    public String name;
+    public String username;
+    public String password;
     
     public QuizesUI()
     {
@@ -44,37 +45,25 @@ public class QuizesUI implements Serializable
         questionsShown = new ArrayList<Integer>();
         round = -1;
         score = 0;
-        
-        Highscore newHighscore = read.deserialzeHighscore(".\\database\\highscore.ser");
-        highscore = newHighscore;
-        
-        //addOriginalQuizes();
+      
         menu();
     }
     
     public void menu()
     {   
-        //NAME
+        //CREATE ACCOUNT
         if (round == -1)
-        {
-            for (int i = 0; i < database.getNumberOfHighscores(); i++)
+        {       
+            while(gui.run == true)
             {
-                Highscore newHighscore = read.deserialzeHighscore(".\\database\\highscore" + i + ".ser");
-                highscore = newHighscore;
+                username = gui.username;
+                password = gui.password;
             }
-            
-            System.out.println("--------------------------------------------------------------");
-            System.out.println("Enter your name in the textfield in the other window.\n");
-            while(gui.name.equals("nothing"))
-            {
-                name = gui.name;
-            }
-            System.out.println("Name = " + name);
+            account = new Account(username, password, database);
+            database.addAccount(account);
+            write.serializeAccount(account);
             
             round = round + 1;
-            database.addHighscore(highscore);
-            numberOfHighscores = database.getNumberOfHighscores();
-            write.serializeHighscore(highscore);
         }
         
         //RESET
@@ -163,15 +152,15 @@ public class QuizesUI implements Serializable
     
     public void highscores()
     {
-        numberOfHighscores = database.getNumberOfHighscores();
+        numberOfAccounts = database.getNumberOfAccounts();
         
         System.out.println("--------------------------------------------------------------");
         System.out.println("HIGHSCORES\nQ. Back\n");
      
-        for(int i = 0; i < numberOfHighscores; i++)
+        for(int i = 0; i < numberOfAccounts; i++)
         {
-            System.out.print((i + 1) + ". " + database.getHighscore(i).getName() + " - " + database.getHighscore(i).getScore());
-            System.out.println("/" + database.getHighscore(i).getQuestionsAnswered() + " - " + database.getHighscore(i).getPercent() + "%");
+            System.out.print((i + 1) + ". " + database.getAccount(i).getUsername() + " - " + database.getAccount(i).getScore());
+            System.out.println("/" + database.getAccount(i).getQuestionsAnswered() + " - " + database.getAccount(i).getPercent() + "%");
         }
         System.out.println();
         
@@ -690,15 +679,15 @@ public class QuizesUI implements Serializable
         //ENDING
         percent = (float) score / round * 100;
         System.out.println("--------------------------------------------------------------");
-        System.out.println("Name: \n" + name + "\n");
+        System.out.println("Username: \n" + username + "\n");
         System.out.println("Final score: \n" + score + " out of " + round + ".\n");
         System.out.println("Final percentage: \n" + percent + "%\n");
         System.out.println("Q. Main Menu\nW. Quit\n");
         
-        database.getHighscore(database.highscores.indexOf(highscore)).setScore(database.getHighscore(database.highscores.indexOf(highscore)).getScore() + score);
-        database.getHighscore(database.highscores.indexOf(highscore)).setQuestionsAnswered(database.getHighscore(database.highscores.indexOf(highscore)).getQuestionsAnswered() + round);
-        database.getHighscore(database.highscores.indexOf(highscore)).setPercent();
-        write.serializeHighscore(highscore);
+        database.getAccount(database.accounts.indexOf(account)).setScore(database.getAccount(database.accounts.indexOf(account)).getScore() + score);
+        database.getAccount(database.accounts.indexOf(account)).setQuestionsAnswered(database.getAccount(database.accounts.indexOf(account)).getQuestionsAnswered() + round);
+        database.getAccount(database.accounts.indexOf(account)).calculatePercent();
+        write.serializeAccount(account);
         
         boolean run = true;
         while (run) 
@@ -759,154 +748,5 @@ public class QuizesUI implements Serializable
     {
         System.out.println("--------------------------------------------------------------");
         System.out.println("Quitting...");
-    }
-    
-    public void addOriginalQuizes()
-    {
-        Quiz quiz0 = new Quiz("Croatia", database);      
-        database.addQuiz(quiz0);
-        
-        Question question0 = new Question("What is the capital of Croatia?", quiz0);
-        quiz0.addQuestion(question0);
-        question0.addAnswer("Osijek");
-        question0.addAnswer("Zagreb");
-        question0.addAnswer("Split");
-        question0.setCorrectAnswer("Zagreb");
-        
-        Question question1 = new Question("What famous inventor was from Croatia?", quiz0);
-        quiz0.addQuestion(question1);
-        question1.addAnswer("Nikola Tesla");
-        question1.addAnswer("Miroslav Penkala");
-        question1.addAnswer("Ruder Boskovic");
-        question1.setCorrectAnswer("Nikola Tesla");
-        
-        Question question2 = new Question("What is the name of Croatia's first king?", quiz0);
-        quiz0.addQuestion(question2);
-        question2.addAnswer("Tomislav");
-        question2.addAnswer("Marko");
-        question2.addAnswer("Trpimir");
-        question2.setCorrectAnswer("Tomislav");
-        
-        Question question3 = new Question("What is Croatia's most prestige national park?", quiz0);
-        quiz0.addQuestion(question3);
-        question3.addAnswer("Kopacki Rit");
-        question3.addAnswer("Plitvicka Jezera");
-        question3.addAnswer("Kornati");
-        question3.setCorrectAnswer("Plitvicka Jezera");
-        
-        Question question4 = new Question("Where was Game of Thrones filmed?", quiz0);
-        quiz0.addQuestion(question4);
-        question4.addAnswer("Zadar");
-        question4.addAnswer("Rijeka");
-        question4.addAnswer("Dubrovnik");
-        question4.setCorrectAnswer("Dubrovnik");
-        
-        
-        
-        Quiz quiz1 = new Quiz("League of Legends", database);
-        database.addQuiz(quiz1);
-        
-        Question question5 = new Question("What is the highest rank in Leauge of Legends", quiz1);
-        quiz1.addQuestion(question5);
-        question5.addAnswer("Gold");
-        question5.addAnswer("Master");
-        question5.addAnswer("Challenger");
-        question5.setCorrectAnswer("Challenger");
-        
-        Question question6 = new Question("What team has been the world champion the most?", quiz1);
-        quiz1.addQuestion(question6);
-        question6.addAnswer("SKT");
-        question6.addAnswer("Fnatic");
-        question6.addAnswer("TSM");
-        question6.setCorrectAnswer("SKT");
-        
-        Question question7 = new Question("Who's the best professionall League of Legends player?", quiz1);
-        quiz1.addQuestion(question7);
-        question7.addAnswer("Uzi");
-        question7.addAnswer("Faker");
-        question7.addAnswer("Perkz");
-        question7.setCorrectAnswer("Faker");
-        
-        Question question8 = new Question("What's the name of the Chinese profesional league?", quiz1);
-        quiz1.addQuestion(question8);
-        question8.addAnswer("LCS");
-        question8.addAnswer("LCK");
-        question8.addAnswer("LPL");
-        question8.setCorrectAnswer("LPL");
-        
-        Question question9 = new Question("Where were the League of Legends 2017 Worlds Finals held?", quiz1);
-        quiz1.addQuestion(question9);
-        question9.addAnswer("The Bird's Nest");
-        question9.addAnswer("Staples Center");
-        question9.addAnswer("Madison Square Garden");
-        question9.setCorrectAnswer("Zagreb");
-        
-        
-        
-        Quiz quiz2 = new Quiz("Geography", database);
-        database.addQuiz(quiz2);
-        
-        Question question10 = new Question("What is the capital of the USA?", quiz2);
-        quiz2.addQuestion(question10);
-        question10.addAnswer("New York");
-        question10.addAnswer("Washington D.C.");
-        question10.addAnswer("Los Angeles");
-        question10.setCorrectAnswer("Washington D.C.");
-        
-        Question question11 = new Question("Where is the Nile located?", quiz2);
-        quiz2.addQuestion(question11);
-        question11.addAnswer("Syria");
-        question11.addAnswer("Egypt");
-        question11.addAnswer("Iraq");
-        question11.setCorrectAnswer("Egypt");
-        
-        Question question12 = new Question("What is the smallest country in the world?", quiz2);
-        quiz2.addQuestion(question12);
-        question12.addAnswer("Monaco");
-        question12.addAnswer("San Marino");
-        question12.addAnswer("Vatican");
-        question12.setCorrectAnswer("Vatican");
-        
-        Question question13 = new Question("What's the second biggest country in the world?", quiz2);
-        quiz2.addQuestion(question13);
-        question13.addAnswer("China");
-        question13.addAnswer("Canada");
-        question13.addAnswer("India");
-        question13.setCorrectAnswer("Canada");
-        
-        Question question14 = new Question("What's the only Portugese speaking country in South America?", quiz2);
-        quiz2.addQuestion(question14);
-        question14.addAnswer("Argentina");
-        question14.addAnswer("Colombia");
-        question14.addAnswer("Brazil");
-        question14.setCorrectAnswer("Brazil");
-        
-        Read read = new Read();
-        Write write = new Write();
-        
-        write.serializeDatabase(database);
-        
-        write.serializeQuiz(quiz0);
-        write.serializeQuestion(question0, quiz0);
-        write.serializeQuestion(question1, quiz0);
-        write.serializeQuestion(question2, quiz0);
-        write.serializeQuestion(question3, quiz0);
-        write.serializeQuestion(question4, quiz0);
-        
-        write.serializeQuiz(quiz1);
-        write.serializeQuestion(question5, quiz1);
-        write.serializeQuestion(question6, quiz1);
-        write.serializeQuestion(question7, quiz1);
-        write.serializeQuestion(question8, quiz1);
-        write.serializeQuestion(question9, quiz1);
-        
-        write.serializeQuiz(quiz2);
-        write.serializeQuestion(question10, quiz2);
-        write.serializeQuestion(question11, quiz2);
-        write.serializeQuestion(question12, quiz2);
-        write.serializeQuestion(question13, quiz2);
-        write.serializeQuestion(question14, quiz2);
-        
-        menu();
     }
 }

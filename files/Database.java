@@ -7,20 +7,52 @@ public class Database implements Serializable
     private static final long serialVersionUID = 1L;
     
     public ArrayList<Quiz> quizes;
-    public ArrayList<Highscore> highscores;
+    public ArrayList<Account> accounts;
+    int numberOfAccounts;
     public Read read;
 
     public Database()
     {
         quizes = new ArrayList<Quiz>();
-        highscores = new ArrayList<Highscore>();
-        readQuizes();
+        accounts = new ArrayList<Account>();
+        readData();
     }
     
-    public void readQuizes()
+    public void readData()
     {
         read = new Read();
         
+        //Accounts       
+        int k = 0;
+        try
+        {
+             numberOfAccounts = new File(".\\database\\accounts\\").listFiles().length;
+        }
+        catch (NullPointerException ex)
+        {
+            File workingFolder1 = new File(".\\database\\accounts");
+            if (!workingFolder1.exists()) {
+                
+                workingFolder1.mkdir();
+            }
+        }
+        finally
+        {
+            if (numberOfAccounts > 0)
+            {
+                while(k < numberOfAccounts)
+                {
+                    String currentAccount = "account" + k;
+                    
+                    Account account = read.deserialzeAccount(".\\database\\accounts\\" + currentAccount + ".ser");
+                    addAccount(account);
+        
+                    k++;
+                }
+            }
+        }
+        
+        //Quizes
         int i = 0;
         int numberOfQuizes = new File(".\\database\\quizes\\").listFiles().length;
         while(i < numberOfQuizes)
@@ -35,7 +67,6 @@ public class Database implements Serializable
             while(j < numberOfQuestions)
             {
                 String currentQuestion = "question" + j;
-                
                 Question question = read.deserialzeQuestion(".\\database\\quizes\\" + currentQuiz + "\\questions\\" + currentQuestion + ".ser");
                 quiz.addQuestion(question);
                 
@@ -56,14 +87,14 @@ public class Database implements Serializable
         return quizes.size();
     }
     
-    public Highscore getHighscore(int index)
+    public Account getAccount(int index)
     {
-        return highscores.get(index);
+        return accounts.get(index);
     }
     
-    public int getNumberOfHighscores()
+    public int getNumberOfAccounts()
     {
-        return highscores.size();
+        return accounts.size();
     }
 
     public void addQuiz(Quiz quiz)
@@ -71,9 +102,9 @@ public class Database implements Serializable
         quizes.add(quiz);
     }
     
-    public void addHighscore(Highscore highscore)
+    public void addAccount(Account account)
     {
-        highscores.add(highscore);
+        accounts.add(account);
     }
     
     public void removeQuiz(int index)
@@ -81,9 +112,9 @@ public class Database implements Serializable
         quizes.remove(index);
     }
 
-    public void removeHighscore(int index)
+    public void removeAccount(int index)
     {
-        highscores.remove(index);
+        accounts.remove(index);
     }
     
     public void removeAllQuizes()
@@ -91,8 +122,8 @@ public class Database implements Serializable
         quizes.clear();
     }
     
-    public void removeAllHighscores()
+    public void removeAllAccounts()
     {
-        highscores.clear();
+        accounts.clear();
     }
 }

@@ -1,32 +1,38 @@
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Highscore implements Serializable
+public class Account implements Serializable
 {   
     private static final long serialVersionUID = 1L;
     
     public Database database;
-    public String name;
+    public String username;
+    public String password;
     public int number;
     public int score;
     public int questionsAnswered;
     public float percent;
     
-    public Highscore(String name, int score, int questionsAnswered, Database database)
+    public Account(String username, String password, Database database)
     {
-        this.name = name;
+        this.username = username;
+        this.password = password;
+        score = 0;
+        questionsAnswered = 0;
+        percent = 0;
+        
         number = 0;
         boolean run = true;
         while(run == true)
         {
             boolean found = true;
-            if (database.getNumberOfHighscores() == 0)
+            if (database.getNumberOfAccounts() == 0)
             {
                 found = false;
             }
-            for (int i = 0; i < database.getNumberOfHighscores(); i++)
+            for (int i = 0; i < database.getNumberOfAccounts(); i++)
             {
-                if (database.getHighscore(i).getNumber() != number)
+                if (database.getAccount(i).getNumber() != number)
                 {
                     found = false;
                 }
@@ -40,21 +46,16 @@ public class Highscore implements Serializable
                 run = false;
             }
         }
-        this.score = score;
-        this.questionsAnswered = questionsAnswered;
-        if (score > 0 && questionsAnswered > 0)
-        {
-            percent = score / questionsAnswered;
-        }
-        else
-        {
-            percent = 0;
-        }
     }
     
-    public String getName()
+    public String getUsername()
     {
-        return name;
+        return username;
+    }
+    
+    public String getPassword()
+    {
+        return password;
     }
     
     public int getNumber()
@@ -77,9 +78,14 @@ public class Highscore implements Serializable
         return percent;
     }
     
-    public void setName(String name)
+    public void setUsername(String name)
     {
-        this.name = name;
+        this.username = username;
+    }
+    
+    public void setPassword()
+    {
+        this.password = password;
     }
     
     public void setScore(int score)
@@ -92,7 +98,7 @@ public class Highscore implements Serializable
         this.questionsAnswered = questionsAnswered;
     }
     
-    public void setPercent()
+    public void calculatePercent()
     {
         percent = (float) score / questionsAnswered * 100;
     }

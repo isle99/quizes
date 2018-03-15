@@ -2,8 +2,8 @@
 comment0.target=Write
 comment1.params=database
 comment1.target=void\ serializeDatabase(Database)
-comment2.params=highscore
-comment2.target=void\ serializeHighscore(Highscore)
+comment2.params=account
+comment2.target=void\ serializeAccount(Account)
 comment3.params=quiz
 comment3.target=void\ serializeQuiz(Quiz)
 comment4.params=question\ quiz

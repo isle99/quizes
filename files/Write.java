@@ -42,13 +42,13 @@ public class Write implements Serializable
         }
     }
     
-    public void serializeHighscore(Highscore highscore) {
+    public void serializeAccount(Account account) {
 
         FileOutputStream fout = null;
         ObjectOutputStream oos = null;
 
         File currentFolder = new File(".\\database");
-        File workingFolder = new File(currentFolder, "highscores");
+        File workingFolder = new File(currentFolder, "accounts");
         if (!workingFolder.exists()) {
             
             workingFolder.mkdir();
@@ -57,17 +57,16 @@ public class Write implements Serializable
         
         try {
             
-            File currentFolder1 = new File(".\\database\\highscores");
-            File workingFolder1 = new File(currentFolder1, "highscore" + highscore.getNumber());
+            File workingFolder1 = new File(".\\database\\accounts");
             if (!workingFolder1.exists()) {
                 
                 workingFolder1.mkdir();
             }
             System.out.println(workingFolder.getAbsolutePath());
             
-            fout = new FileOutputStream(".\\database\\highscores\\highscore" + highscore.getNumber() + ".ser");
+            fout = new FileOutputStream(".\\database\\accounts\\account" + account.getNumber() + ".ser");
             oos = new ObjectOutputStream(fout);
-            oos.writeObject(highscore);
+            oos.writeObject(account);
 
         } catch (Exception ex) {
 
