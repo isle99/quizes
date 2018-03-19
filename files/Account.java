@@ -25,25 +25,21 @@ public class Account implements Serializable
         boolean run = true;
         while(run == true)
         {
-            boolean found = true;
             if (database.getNumberOfAccounts() == 0)
             {
-                found = false;
+                run = false;
             }
             for (int i = 0; i < database.getNumberOfAccounts(); i++)
             {
                 if (database.getAccount(i).getNumber() != number)
                 {
-                    found = false;
+                    run = false;
+                    break;
                 }
                 else
                 {
                     number = number + 1;
                 }
-            } 
-            if (found == false)
-            {
-                run = false;
             }
         }
     }
